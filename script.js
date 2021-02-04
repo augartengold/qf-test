@@ -34,6 +34,9 @@ async function writeVal(device) {
     try {
         await device.sendReport(reportId, data);
     } catch (error) {
-        console.error("Failed to write data", error);
+        console.log("ERROR");
+        console.error(error);
     }
+
+    console.log("written");
 }
