@@ -28,7 +28,7 @@ async function getOpenedDevice() {
 async function writeVal(device) {
    
     const reportId = 0xF0;
-    const let = 4
+    const len = 4
     const data = Int8Array.from([reportId, len, 1, 2, 3, 4]);
   
     try {
