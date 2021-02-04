@@ -2,17 +2,18 @@
 // Demo inspired by https://github.com/arvydas/blinkstick-node
 
 const vendorId = 0x0403; // FTDI
+let device;
 
 document.querySelector('button').addEventListener('click', handleClick);
 
 async function handleClick() {
     const device = await getOpenedDevice();
-    writeVal(device)
+    writeVal()
 }
 
 async function getOpenedDevice() {
     const devices = await navigator.hid.getDevices();
-    let device = devices.find(d => d.vendorId === vendorId);
+    device = devices.find(d => d.vendorId === vendorId);
 
     if (!device) {
         device = await navigator.hid.requestDevice({filters: [{ vendorId }],});
@@ -25,7 +26,7 @@ async function getOpenedDevice() {
     return device;
 }
 
-async function writeVal(device) {
+async function writeVal() {
    
     const reportId = 0xF0;
     const len = 4
