@@ -29,7 +29,7 @@ async function writeVal(device) {
    
     const reportId = 0xF0;
     const len = 4
-    const data = Int8Array.from([reportId, len, 1, 2, 3, 4]);
+    const data = Int8Array.from([reportId, len, 0x55, 1, 2, 3]);
   
     try {
         await device.sendFeatureReport(reportId, data);
