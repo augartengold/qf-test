@@ -33,6 +33,18 @@ async function writeVal() {
     const data = Int8Array.from([reportId, len, 0x55, 1, 2, 3]);
   
     try {
+        // Request feature report.
+        const dataView = await device.receiveFeatureReport(/* reportId= */ 0xE0);
+        console.log(dataView);
+    } catch (error) {
+        console.log("ERROR");
+        console.error(error);
+    }
+
+    console.log("READ");
+
+/*
+    try {
         await device.sendReport(reportId, data);
     } catch (error) {
         console.log("ERROR");
@@ -40,4 +52,5 @@ async function writeVal() {
     }
 
     console.log("written");
+    */
 }
