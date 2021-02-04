@@ -32,7 +32,7 @@ async function writeVal(device) {
     const data = Int8Array.from([reportId, len, 0x55, 1, 2, 3]);
   
     try {
-        await device.sendFeatureReport(reportId, data);
+        await device.sendReport(reportId, data);
     } catch (error) {
         console.error("Failed to write data", error);
     }
