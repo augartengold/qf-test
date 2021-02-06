@@ -43,6 +43,10 @@ async function writeVal(device) {
         console.log("sending feature request")
         const dataView = await device.receiveFeatureReport(/* reportId= */ 0xA0);
         console.log(dataView);
+
+        dataView.forEach(function(entry) {
+            console.log("Inhalt: ", entry);
+        });
     } catch (error) {
         console.log("ERROR");
         console.error(error);
