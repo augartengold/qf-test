@@ -16,64 +16,45 @@ async function getOpenedDevice() {
     //device = devices.find(d => d.vendorId === vendorId);
 
     //if (!device) {
-        device = await navigator.hid.requestDevice({filters: [{ vendorId }],});
+        const devInterfaces = await navigator.hid.requestDevice({filters: [{ vendorId }],});
     //}
 
-    console.log(device)
-    device = device[0]
+    console.log(devInterfaces)
+    const interface1 = devInterfaces[1];
 
-    if (!device.opened) {
+    if (!interface1.opened) {
         console.log("OPENING")
-        await device.open();
-    }
+        await interface1.open();
+    } else {
+		await interface1.close();
+		await interface1.open();
+	}
 
-    console.log(device)
-    console.log(device.collections)
-    return device;
+    console.log(interface1)
+    console.log(interface1.collections)
+	
+    return interface1;
 }
 
 async function writeVal(device) {
    
     const reportId = 0xF0;
     const len = 4
-    const data = Int8Array.from([reportId, len, 0x55, 1, 2, 3]);
+    //const data = Int8Array.from([reportId, len, 0x55, 1, 2, 3]);
+	//const data = Int8Array.from([len, 0x55, 1, 2, 3]);
+	
+	const data = [len, 0, 1, 2, 3];
+	var vals = new Uint8Array(data);
+	console.log(vals)
+	
 
     try {
-        // Request feature report.
-        console.log("sending feature request")
-        const dataView = await device.receiveFeatureReport(/* reportId= */ 0xA0);
-        console.log(dataView);
-
-/*
-        console.log("0: ", dataView.getInt8(0));
-        console.log("1: ", dataView.getInt8(1));
-        console.log("2: ", dataView.getInt8(2));
-        console.log("3: ", dataView.getInt8(3));
-*/
-        console.log("len: ", dataView.byteLength);
-        var view = new Uint8Array(dataView);
-        console.log("0:", view[0]);
-        console.log("1:", view[1]);
-        console.log("2:", view[2]);
-        console.log("3:", view[3]);
-
-
-
-    } catch (error) {
-        console.log("ERROR");
-        console.error(error);
-    }
-
-    console.log("READ");
-
-/*
-    try {
-        await device.sendReport(reportId, data);
+        await device.sendReport(reportId, vals);
     } catch (error) {
         console.log("ERROR");
         console.error(error);
     }
 
     console.log("written");
-    */
+    
 }
