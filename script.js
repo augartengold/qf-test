@@ -50,6 +50,9 @@ async function writeVal(device) {
         console.log("2: ", dataView.getInt8(2));
         console.log("3: ", dataView.getInt8(3));
 
+        var view = new Uint8Array(dataView);
+        console.log(view);
+
 
 
     } catch (error) {
