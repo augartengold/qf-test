@@ -53,9 +53,9 @@ async function writeVal(device) {
         console.log("len: ", dataView.byteLength);
         var view = new Uint8Array(dataView);
         console.log("0:", view[0]);
-        console.log("1:", view[0]);
-        console.log("2:", view[0]);
-        console.log("3:", view[0]);
+        console.log("1:", view[1]);
+        console.log("2:", view[2]);
+        console.log("3:", view[3]);
 
 
 
